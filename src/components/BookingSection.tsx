@@ -1,14 +1,18 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 
-const events = [
-  'Shakti Leela – Chapter I (May 15)',
-  'Shakti Leela – Grand Finale (Aug 10)',
+const eventTypes = [
+  'Temple Festival / Utsav',
+  'Cultural Program',
+  'School / College Event',
+  'Corporate Event',
+  'Private / Community Event',
+  'Other',
 ];
 
 export default function BookingSection() {
   const [submitted, setSubmitted] = useState(false);
-  const [form, setForm] = useState({ name: '', phone: '', tickets: '1', event: events[0] });
+  const [form, setForm] = useState({ name: '', phone: '', organization: '', location: '', eventType: eventTypes[0], date: '', message: '' });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,14 +27,20 @@ export default function BookingSection() {
           className="text-primary font-body text-sm tracking-[0.3em] uppercase text-center mb-3"
           initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
         >
-          Reserve Your Seat
+          Hire Our Team
         </motion.p>
         <motion.h2
-          className="font-heading text-3xl md:text-5xl text-center text-saffron-gradient mb-10"
+          className="font-heading text-3xl md:text-5xl text-center text-saffron-gradient mb-4"
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
         >
-          Book Tickets
+          Book Us for Your Event
         </motion.h2>
+        <motion.p
+          className="text-muted-foreground text-center text-sm mb-10 max-w-md mx-auto"
+          initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+        >
+          Want Shakti Leela to perform at your event? Fill out the form below and our team will get in touch with you.
+        </motion.p>
 
         <AnimatePresence mode="wait">
           {submitted ? (
@@ -42,8 +52,8 @@ export default function BookingSection() {
               exit={{ opacity: 0, scale: 0.9 }}
             >
               <div className="text-6xl mb-4">🙏</div>
-              <h3 className="font-heading text-2xl text-primary mb-2">Booking Confirmed!</h3>
-              <p className="text-muted-foreground">We'll send you a confirmation shortly.</p>
+              <h3 className="font-heading text-2xl text-primary mb-2">Request Received!</h3>
+              <p className="text-muted-foreground">Our team will contact you shortly to discuss your event.</p>
             </motion.div>
           ) : (
             <motion.form
@@ -55,8 +65,10 @@ export default function BookingSection() {
               viewport={{ once: true }}
             >
               {[
-                { label: 'Full Name', type: 'text', key: 'name', placeholder: 'Enter your name' },
+                { label: 'Your Name', type: 'text', key: 'name', placeholder: 'Enter your name' },
                 { label: 'Phone Number', type: 'tel', key: 'phone', placeholder: '+91 XXXXX XXXXX' },
+                { label: 'Organization / Temple Name', type: 'text', key: 'organization', placeholder: 'e.g. Shri Ganapati Mandir Trust' },
+                { label: 'Event Location', type: 'text', key: 'location', placeholder: 'City, Venue name' },
               ].map(({ label, type, key, placeholder }) => (
                 <div key={key}>
                   <label className="block text-sm font-body text-foreground/70 mb-1.5">{label}</label>
@@ -71,37 +83,46 @@ export default function BookingSection() {
                 </div>
               ))}
 
-              <div>
-                <label className="block text-sm font-body text-foreground/70 mb-1.5">Number of Tickets</label>
-                <select
-                  className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground focus:outline-none focus:border-primary/50 transition-colors"
-                  value={form.tickets}
-                  onChange={(e) => setForm({ ...form, tickets: e.target.value })}
-                >
-                  {[1, 2, 3, 4, 5, 6, 8, 10].map(n => (
-                    <option key={n} value={n}>{n} {n === 1 ? 'Ticket' : 'Tickets'}</option>
-                  ))}
-                </select>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-body text-foreground/70 mb-1.5">Event Type</label>
+                  <select
+                    className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground focus:outline-none focus:border-primary/50 transition-colors"
+                    value={form.eventType}
+                    onChange={(e) => setForm({ ...form, eventType: e.target.value })}
+                  >
+                    {eventTypes.map(ev => (
+                      <option key={ev} value={ev}>{ev}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-body text-foreground/70 mb-1.5">Preferred Date</label>
+                  <input
+                    type="date"
+                    className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground focus:outline-none focus:border-primary/50 transition-colors"
+                    value={form.date}
+                    onChange={(e) => setForm({ ...form, date: e.target.value })}
+                  />
+                </div>
               </div>
 
               <div>
-                <label className="block text-sm font-body text-foreground/70 mb-1.5">Select Event</label>
-                <select
-                  className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground focus:outline-none focus:border-primary/50 transition-colors"
-                  value={form.event}
-                  onChange={(e) => setForm({ ...form, event: e.target.value })}
-                >
-                  {events.map(ev => (
-                    <option key={ev} value={ev}>{ev}</option>
-                  ))}
-                </select>
+                <label className="block text-sm font-body text-foreground/70 mb-1.5">Additional Message (Optional)</label>
+                <textarea
+                  rows={3}
+                  placeholder="Tell us about your event..."
+                  className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-colors resize-none"
+                  value={form.message}
+                  onChange={(e) => setForm({ ...form, message: e.target.value })}
+                />
               </div>
 
               <button
                 type="submit"
                 className="w-full py-4 rounded-lg bg-primary text-primary-foreground font-heading text-sm tracking-wider uppercase transition-all hover:scale-[1.02] hover:shadow-md"
               >
-                Confirm Booking
+                Submit Booking Request
               </button>
             </motion.form>
           )}

@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import jskLogo from '@/assets/jsk-logo.png';
 
 const links = [
   { label: 'About', href: '#about' },
   { label: 'Shows', href: '#shows' },
+  { label: 'Characters', href: '#characters' },
   { label: 'Gallery', href: '#gallery' },
-  { label: 'Book', href: '#booking' },
+  { label: 'Book Us', href: '#booking' },
   { label: 'Invite', href: '#invite' },
 ];
 
@@ -20,10 +22,11 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-background/95 backdrop-blur-sm shadow-sm py-3' : 'py-5'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-background/95 backdrop-blur-sm shadow-sm py-2' : 'py-4'}`}>
       <div className="container max-w-6xl mx-auto px-4 flex items-center justify-between">
-        <a href="#" className="font-heading text-primary text-lg tracking-wider">
-          Shakti Leela
+        <a href="#" className="flex items-center gap-3">
+          <img src={jskLogo} alt="Jnana Shiksha Kendra" className="h-10 w-10 rounded-full object-cover" />
+          <span className="font-heading text-primary text-lg tracking-wider">Shakti Leela</span>
         </a>
 
         {/* Desktop */}
