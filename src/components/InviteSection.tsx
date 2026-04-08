@@ -11,11 +11,10 @@ export default function InviteSection() {
   };
 
   return (
-    <section id="invite" className="py-24 md:py-32 relative">
-      <div className="section-gradient absolute inset-0" />
+    <section id="invite" className="py-24 md:py-32">
       <div className="container max-w-xl mx-auto px-4 relative">
         <motion.h2
-          className="font-heading text-3xl md:text-5xl text-center text-gold-gradient mb-4"
+          className="font-heading text-3xl md:text-5xl text-center text-saffron-gradient mb-4"
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
         >
           Invite Shakti Leela
@@ -29,15 +28,15 @@ export default function InviteSection() {
 
         <AnimatePresence mode="wait">
           {submitted ? (
-            <motion.div key="done" className="glass-card p-10 text-center" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}>
+            <motion.div key="done" className="warm-card p-10 text-center" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}>
               <div className="text-6xl mb-4">🙏</div>
-              <h3 className="font-heading text-2xl text-gold mb-2">Thank You!</h3>
+              <h3 className="font-heading text-2xl text-primary mb-2">Thank You!</h3>
               <p className="text-muted-foreground">We'll get back to you soon.</p>
             </motion.div>
           ) : (
             <motion.form
               key="form"
-              className="glass-card p-8 space-y-5"
+              className="warm-card p-8 space-y-5"
               onSubmit={handleSubmit}
               initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             >
@@ -52,7 +51,7 @@ export default function InviteSection() {
                     type={type}
                     required
                     placeholder={placeholder}
-                    className="w-full bg-muted/50 border border-border rounded-lg px-4 py-3 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/30 transition-colors"
+                    className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-colors"
                   />
                 </div>
               ))}
@@ -61,12 +60,12 @@ export default function InviteSection() {
                 <textarea
                   rows={3}
                   placeholder="Tell us about your event..."
-                  className="w-full bg-muted/50 border border-border rounded-lg px-4 py-3 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/30 transition-colors resize-none"
+                  className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-colors resize-none"
                 />
               </div>
               <button
                 type="submit"
-                className="w-full py-4 rounded-lg bg-primary text-primary-foreground font-heading text-sm tracking-wider uppercase glow-gold transition-all hover:scale-[1.02]"
+                className="w-full py-4 rounded-lg bg-primary text-primary-foreground font-heading text-sm tracking-wider uppercase transition-all hover:scale-[1.02] hover:shadow-md"
               >
                 Invite Shakti Leela
               </button>

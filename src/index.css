@@ -6,54 +6,54 @@
 
 @layer base {
   :root {
-    --background: 260 30% 6%;
-    --foreground: 40 20% 90%;
+    --background: 36 45% 93%;
+    --foreground: 25 30% 15%;
 
-    --card: 260 25% 10%;
-    --card-foreground: 40 20% 90%;
+    --card: 36 40% 96%;
+    --card-foreground: 25 30% 15%;
 
-    --popover: 260 25% 10%;
-    --popover-foreground: 40 20% 90%;
+    --popover: 36 40% 96%;
+    --popover-foreground: 25 30% 15%;
 
-    --primary: 43 80% 55%;
-    --primary-foreground: 260 30% 6%;
+    --primary: 32 90% 45%;
+    --primary-foreground: 36 45% 97%;
 
-    --secondary: 260 20% 16%;
-    --secondary-foreground: 40 20% 90%;
+    --secondary: 36 30% 88%;
+    --secondary-foreground: 25 30% 20%;
 
-    --muted: 260 20% 14%;
-    --muted-foreground: 260 10% 55%;
+    --muted: 36 25% 90%;
+    --muted-foreground: 25 15% 45%;
 
-    --accent: 270 40% 25%;
-    --accent-foreground: 40 20% 90%;
+    --accent: 32 80% 50%;
+    --accent-foreground: 36 45% 97%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 260 20% 18%;
-    --input: 260 20% 18%;
-    --ring: 43 80% 55%;
+    --border: 32 30% 82%;
+    --input: 32 30% 82%;
+    --ring: 32 90% 45%;
 
     --radius: 0.75rem;
 
-    --gold: 43 80% 55%;
-    --gold-light: 43 90% 70%;
-    --gold-dark: 43 70% 40%;
-    --divine-purple: 270 50% 20%;
-    --cosmic-blue: 240 50% 15%;
-    --glow-gold: 43 100% 60%;
+    --gold: 32 80% 42%;
+    --gold-light: 36 70% 55%;
+    --gold-dark: 28 85% 32%;
+    --saffron: 32 90% 45%;
+    --cream: 36 45% 93%;
+    --warm-bg: 36 50% 96%;
 
     --font-heading: 'Cinzel', serif;
     --font-body: 'Inter', sans-serif;
 
-    --sidebar-background: 260 30% 8%;
-    --sidebar-foreground: 40 20% 90%;
-    --sidebar-primary: 43 80% 55%;
-    --sidebar-primary-foreground: 260 30% 6%;
-    --sidebar-accent: 270 40% 25%;
-    --sidebar-accent-foreground: 40 20% 90%;
-    --sidebar-border: 260 20% 18%;
-    --sidebar-ring: 43 80% 55%;
+    --sidebar-background: 36 40% 94%;
+    --sidebar-foreground: 25 30% 15%;
+    --sidebar-primary: 32 90% 45%;
+    --sidebar-primary-foreground: 36 45% 97%;
+    --sidebar-accent: 32 80% 50%;
+    --sidebar-accent-foreground: 36 45% 97%;
+    --sidebar-border: 32 30% 82%;
+    --sidebar-ring: 32 90% 45%;
   }
 }
 
@@ -73,41 +73,18 @@
 }
 
 @layer components {
-  .glass {
-    @apply bg-secondary/40 backdrop-blur-xl border border-border/50;
+  .warm-card {
+    @apply bg-card border border-border/60 rounded-xl shadow-sm;
   }
 
-  .glass-card {
-    @apply bg-secondary/30 backdrop-blur-lg border border-border/40 rounded-xl;
-  }
-
-  .text-gold-gradient {
+  .text-saffron-gradient {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--gold-light)), hsl(var(--gold)), hsl(var(--gold-dark)));
+    background-image: linear-gradient(135deg, hsl(var(--gold-dark)), hsl(var(--gold)), hsl(var(--gold-light)));
   }
 
-  .glow-gold {
-    box-shadow: 0 0 30px hsl(var(--gold) / 0.3), 0 0 60px hsl(var(--gold) / 0.1);
-  }
-
-  .glow-text {
-    text-shadow: 0 0 20px hsl(var(--gold) / 0.5), 0 0 40px hsl(var(--gold) / 0.2);
-  }
-
-  .divine-gradient {
-    background: linear-gradient(180deg, 
-      hsl(var(--background)) 0%, 
-      hsl(var(--divine-purple)) 50%, 
-      hsl(var(--cosmic-blue)) 100%
-    );
-  }
-
-  .section-gradient {
-    background: linear-gradient(180deg,
-      transparent 0%,
-      hsl(var(--divine-purple) / 0.3) 50%,
-      transparent 100%
-    );
+  .section-divider {
+    background: linear-gradient(90deg, transparent, hsl(var(--border)), transparent);
+    height: 1px;
   }
 }
 
@@ -119,29 +96,11 @@
   .animate-float-delayed {
     animation: float 6s ease-in-out 2s infinite;
   }
-
-  .animate-pulse-glow {
-    animation: pulseGlow 3s ease-in-out infinite;
-  }
-
-  .animate-rays {
-    animation: rays 8s linear infinite;
-  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(2deg); }
-}
-
-@keyframes pulseGlow {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
-}
-
-@keyframes rays {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
 }
 
 /* Scrollbar */
@@ -152,7 +111,7 @@
   background: hsl(var(--background));
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--gold) / 0.3);
+  background: hsl(var(--border));
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {

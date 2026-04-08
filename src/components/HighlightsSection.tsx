@@ -12,7 +12,7 @@ export default function HighlightsSection() {
     <section className="py-24 md:py-32">
       <div className="container max-w-6xl mx-auto px-4">
         <motion.h2
-          className="font-heading text-3xl md:text-5xl text-center text-gold-gradient mb-14"
+          className="font-heading text-3xl md:text-5xl text-center text-saffron-gradient mb-14"
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
         >
           What Makes It Special
@@ -21,14 +21,14 @@ export default function HighlightsSection() {
           {highlights.map((h, i) => (
             <motion.div
               key={h.title}
-              className="text-center p-6 glass-card hover:border-gold/40 transition-all hover:scale-105"
+              className="text-center p-6 warm-card hover:shadow-md transition-shadow"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.6 }}
             >
               <div className="text-5xl mb-4">{h.icon}</div>
-              <h3 className="font-heading text-gold text-lg mb-2">{h.title}</h3>
+              <h3 className="font-heading text-primary text-lg mb-2">{h.title}</h3>
               <p className="text-muted-foreground text-sm">{h.desc}</p>
             </motion.div>
           ))}
