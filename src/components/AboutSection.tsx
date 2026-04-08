@@ -11,16 +11,15 @@ const fadeUp = {
 export default function AboutSection() {
   return (
     <section id="about" className="relative py-24 md:py-32">
-      <div className="section-gradient absolute inset-0" />
       <div className="container max-w-4xl mx-auto px-4 relative">
         <motion.p
-          className="text-gold font-body text-sm tracking-[0.3em] uppercase text-center mb-3"
+          className="text-primary font-body text-sm tracking-[0.3em] uppercase text-center mb-3"
           variants={fadeUp} custom={0} initial="hidden" whileInView="visible" viewport={{ once: true }}
         >
           About the Production
         </motion.p>
         <motion.h2
-          className="font-heading text-3xl md:text-5xl text-center text-gold-gradient mb-8"
+          className="font-heading text-3xl md:text-5xl text-center text-saffron-gradient mb-8"
           variants={fadeUp} custom={1} initial="hidden" whileInView="visible" viewport={{ once: true }}
         >
           The Story of Shakti Leela
@@ -30,7 +29,7 @@ export default function AboutSection() {
           variants={fadeUp} custom={2} initial="hidden" whileInView="visible" viewport={{ once: true }}
         >
           Shakti Leela – Shri Sampurna Devi Mahatme is a grand mythological dance drama 
-          inspired by the sacred text <span className="text-gold">Devi Mahatme</span>. 
+          inspired by the sacred text <span className="text-primary font-medium">Devi Mahatme</span>. 
           It brings to life the divine stories of the Mother Goddess through classical dance, 
           music, and theatrical performance, celebrating the eternal power of Shakti.
         </motion.p>
@@ -43,11 +42,11 @@ export default function AboutSection() {
           ].map((item, i) => (
             <motion.div
               key={item.title}
-              className="glass-card p-6 text-center hover:border-gold/40 transition-colors"
+              className="warm-card p-6 text-center hover:shadow-md transition-shadow"
               variants={fadeUp} custom={i + 3} initial="hidden" whileInView="visible" viewport={{ once: true }}
             >
               <div className="text-4xl mb-4">{item.icon}</div>
-              <h3 className="font-heading text-gold text-lg mb-2">{item.title}</h3>
+              <h3 className="font-heading text-primary text-lg mb-2">{item.title}</h3>
               <p className="text-muted-foreground text-sm">{item.desc}</p>
             </motion.div>
           ))}

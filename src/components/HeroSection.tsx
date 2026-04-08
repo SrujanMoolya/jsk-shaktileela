@@ -1,24 +1,16 @@
 import { motion } from 'framer-motion';
-import { Suspense, lazy } from 'react';
-
-const CosmicScene = lazy(() => import('./CosmicScene'));
 
 export default function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* 3D Background */}
-      <Suspense fallback={null}>
-        <CosmicScene />
-      </Suspense>
+      {/* Warm divine gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(36_50%_96%)] via-[hsl(36_55%_90%)] to-background" />
 
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-transparent to-background z-[1]" />
-
-      {/* Floating decorative elements */}
-      <div className="absolute inset-0 z-[1] pointer-events-none">
-        <div className="absolute top-1/4 left-[10%] text-5xl animate-float opacity-40">🪷</div>
-        <div className="absolute top-1/3 right-[12%] text-4xl animate-float-delayed opacity-30">🔱</div>
-        <div className="absolute bottom-1/3 left-[20%] text-3xl animate-float opacity-25">🪔</div>
+      {/* Subtle decorative elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-[10%] text-5xl animate-float opacity-20">🪷</div>
+        <div className="absolute top-1/3 right-[12%] text-4xl animate-float-delayed opacity-15">🪔</div>
+        <div className="absolute bottom-1/3 left-[20%] text-3xl animate-float opacity-10">🪷</div>
       </div>
 
       {/* Content */}
@@ -28,13 +20,13 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
         >
-          <p className="text-gold font-body text-sm md:text-base tracking-[0.3em] uppercase mb-6">
+          <p className="text-primary font-body text-sm md:text-base tracking-[0.3em] uppercase mb-6">
             Jnana Shiksha Kendra Presents
           </p>
         </motion.div>
 
         <motion.h1
-          className="font-heading text-4xl md:text-6xl lg:text-8xl font-bold text-gold-gradient glow-text leading-tight mb-4"
+          className="font-heading text-4xl md:text-6xl lg:text-8xl font-bold text-saffron-gradient leading-tight mb-4"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.5 }}
@@ -68,13 +60,13 @@ export default function HeroSection() {
         >
           <a
             href="#booking"
-            className="px-8 py-4 rounded-lg bg-primary text-primary-foreground font-heading text-sm tracking-wider uppercase glow-gold transition-all hover:scale-105 hover:shadow-[0_0_40px_hsl(43_80%_55%/0.4)]"
+            className="px-8 py-4 rounded-lg bg-primary text-primary-foreground font-heading text-sm tracking-wider uppercase transition-all hover:scale-105 hover:shadow-md"
           >
             Book Tickets
           </a>
           <a
             href="#invite"
-            className="px-8 py-4 rounded-lg glass border-gold/30 text-gold font-heading text-sm tracking-wider uppercase transition-all hover:scale-105 hover:border-gold/60"
+            className="px-8 py-4 rounded-lg border-2 border-primary text-primary font-heading text-sm tracking-wider uppercase transition-all hover:scale-105 hover:bg-primary/10"
           >
             Invite Us to Perform
           </a>

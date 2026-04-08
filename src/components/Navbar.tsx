@@ -20,16 +20,16 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass py-3' : 'py-5'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-background/95 backdrop-blur-sm shadow-sm py-3' : 'py-5'}`}>
       <div className="container max-w-6xl mx-auto px-4 flex items-center justify-between">
-        <a href="#" className="font-heading text-gold text-lg tracking-wider">
+        <a href="#" className="font-heading text-primary text-lg tracking-wider">
           Shakti Leela
         </a>
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
           {links.map(l => (
-            <a key={l.href} href={l.href} className="text-foreground/70 hover:text-gold text-sm font-body transition-colors">
+            <a key={l.href} href={l.href} className="text-foreground/70 hover:text-primary text-sm font-body transition-colors">
               {l.label}
             </a>
           ))}
@@ -37,7 +37,7 @@ export default function Navbar() {
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden text-gold text-2xl"
+          className="md:hidden text-primary text-2xl"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
@@ -49,7 +49,7 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            className="md:hidden glass mt-2 mx-4 rounded-xl p-4 space-y-3"
+            className="md:hidden bg-card border border-border mt-2 mx-4 rounded-xl p-4 space-y-3 shadow-md"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -59,7 +59,7 @@ export default function Navbar() {
                 key={l.href}
                 href={l.href}
                 onClick={() => setMenuOpen(false)}
-                className="block text-foreground/70 hover:text-gold text-sm font-body py-2 transition-colors"
+                className="block text-foreground/70 hover:text-primary text-sm font-body py-2 transition-colors"
               >
                 {l.label}
               </a>
