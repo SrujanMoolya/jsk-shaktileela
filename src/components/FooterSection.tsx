@@ -31,7 +31,7 @@ export default function FooterSection() {
             <div className="space-y-2 text-sm text-muted-foreground">
               <p>📍 Navi Mumbai, Maharashtra, India</p>
               <p>📧 contact@shaktileela.in</p>
-              <p>📞 +91 XXXXX XXXXX</p>
+              <p>📞 +91 9029443349</p>
             </div>
             <div className="flex gap-4 mt-4">
               {['Instagram', 'YouTube', 'Facebook'].map(social => (
@@ -42,9 +42,12 @@ export default function FooterSection() {
             </div>
           </div>
         </div>
-        <div className="border-t border-border pt-6 text-center">
+        <div className="border-t border-border pt-6 text-center space-y-2">
           <p className="text-muted-foreground/60 text-xs font-body">
             © 2026 Shakti Leela – Jnana Shiksha Kendra. All rights reserved. 🙏
+          </p>
+          <p className="text-muted-foreground/40 text-[10px] tracking-widest uppercase font-body">
+            Developed by <a href="https://21xengineers.svvaap.in" target="_blank" rel="noopener noreferrer" className="text-primary/60 hover:text-primary underline-offset-4 hover:underline transition-all duration-300">21xengineers</a> – <a href="https://svvaap.in" target="_blank" rel="noopener noreferrer" className="text-primary/60 hover:text-primary underline-offset-4 hover:underline transition-all duration-300">svvaap innovation</a>
           </p>
         </div>
       </div>

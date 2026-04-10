@@ -66,7 +66,7 @@ export default function BookingSection() {
             >
               {[
                 { label: 'Your Name', type: 'text', key: 'name', placeholder: 'Enter your name' },
-                { label: 'Phone Number', type: 'tel', key: 'phone', placeholder: '+91 XXXXX XXXXX' },
+                { label: 'Phone Number', type: 'tel', key: 'phone', placeholder: '+91 9029443349' },
                 { label: 'Organization / Temple Name', type: 'text', key: 'organization', placeholder: 'e.g. Shri Ganapati Mandir Trust' },
                 { label: 'Event Location', type: 'text', key: 'location', placeholder: 'City, Venue name' },
               ].map(({ label, type, key, placeholder }) => (

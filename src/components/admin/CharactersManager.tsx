@@ -57,7 +57,6 @@ export default function CharactersManager() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Input placeholder="Character Name" value={form.name || ''} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} />
           <Input placeholder="Role (e.g. The Supreme Goddess)" value={form.role || ''} onChange={e => setForm(p => ({ ...p, role: e.target.value }))} />
-          <Input placeholder="Emoji" value={form.emoji || ''} onChange={e => setForm(p => ({ ...p, emoji: e.target.value }))} />
         </div>
         <Textarea placeholder="Description" value={form.description || ''} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} />
         <div>
@@ -78,8 +77,14 @@ export default function CharactersManager() {
       <div className="space-y-3">
         {characters.map(c => (
           <div key={c.id} className="warm-card p-4 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <span className="text-2xl">{c.emoji}</span>
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full overflow-hidden bg-muted flex-shrink-0 border border-border">
+                {c.image_url ? (
+                  <img src={c.image_url} alt="" className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs uppercase">No Img</div>
+                )}
+              </div>
               <div>
                 <strong className="font-heading">{c.name}</strong>
                 <span className="text-muted-foreground text-sm ml-2">— {c.role}</span>
