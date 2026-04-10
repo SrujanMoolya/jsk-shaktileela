@@ -172,28 +172,48 @@ export default function HeroSection() {
 
         {/* CTA Buttons */}
         <motion.div
-          className="flex flex-wrap gap-4 mb-14"
+          className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mb-14"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.3 }}
         >
           <a
             href="#booking"
-            className="group relative px-8 py-3.5 overflow-hidden rounded-full bg-primary text-primary-foreground
-                       font-heading text-xs tracking-[0.2em] uppercase transition-all duration-300
-                       hover:shadow-[0_8px_25px_hsl(var(--primary)/0.45)] hover:scale-105"
+            className="group relative px-10 py-5 overflow-hidden rounded-full bg-[#1a1512] text-white
+                       font-heading text-sm tracking-[0.25em] uppercase transition-all duration-500
+                       hover:shadow-[0_15px_40px_-10px_rgba(212,135,32,0.4)] hover:scale-105"
           >
-            <span className="relative z-10">✦ Book Tickets</span>
-            <div className="absolute inset-0 bg-white/20 -translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+            <span className="relative z-10 flex items-center gap-3">
+              ✦ Book Our Team
+              <span className="w-12 h-px bg-primary/80 group-hover:w-16 transition-all duration-500" />
+            </span>
+            <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+            <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </a>
+          
           <a
             href="#shows"
-            className="px-8 py-3.5 rounded-full border border-primary/40 text-primary
+            className="px-8 py-3.5 rounded-full border border-primary/30 text-primary/80
                        font-heading text-xs tracking-[0.2em] uppercase
-                       transition-all duration-300 hover:bg-primary/10 hover:scale-105"
+                       transition-all duration-300 hover:bg-primary/5 hover:text-primary hover:border-primary"
           >
             View Shows →
           </a>
+        </motion.div>
+
+        {/* Shlok Quote */}
+        <motion.div
+          className="mb-8 border-l-2 border-primary/30 pl-5 italic"
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 1.6 }}
+        >
+          <p className="text-primary/70 font-heading text-sm mb-1">
+            "या देवी सर्वभूतेषु शक्ति-रूपेण संस्थिता।"
+          </p>
+          <p className="text-muted-foreground/60 text-[10px] uppercase tracking-widest font-body font-medium">
+            To that Goddess who resides in all beings as Power — Salutations!
+          </p>
         </motion.div>
 
         {/* Stats */}
@@ -205,7 +225,7 @@ export default function HeroSection() {
         >
           {[
             { num: '3+', label: 'Grand Shows' },
-            { num: '100+', label: 'Artists' },
+            { num: '20+', label: 'Artists' },
             { num: '5,000+', label: 'Audience' },
           ].map((stat) => (
             <div key={stat.label}>

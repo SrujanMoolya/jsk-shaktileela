@@ -30,16 +30,36 @@ export default function BookingSection() {
           Hire Our Team
         </motion.p>
         <motion.h2
-          className="font-heading text-3xl md:text-5xl text-center text-saffron-gradient mb-4"
+          className="font-heading text-4xl md:text-6xl text-center text-saffron-gradient mb-6"
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
         >
           Book Us for Your Event
         </motion.h2>
+
+        {/* Worthy Features */}
+        <motion.div 
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12"
+          initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+        >
+          {[
+            { label: '100+ Artists', icon: '🎭' },
+            { label: 'Divine Themes', icon: '✨' },
+            { label: 'Live Music', icon: '🎶' },
+            { label: 'Grand Stage', icon: '🏛️' },
+          ].map((item) => (
+            <div key={item.label} className="text-center p-3 rounded-xl bg-secondary/20 border border-primary/10">
+              <div className="text-xl mb-1">{item.icon}</div>
+              <div className="text-[10px] font-heading font-bold uppercase tracking-widest text-primary">{item.label}</div>
+            </div>
+          ))}
+        </motion.div>
+
         <motion.p
-          className="text-muted-foreground text-center text-sm mb-10 max-w-md mx-auto"
+          className="text-muted-foreground text-center text-sm mb-12 max-w-md mx-auto leading-relaxed border-b border-primary/20 pb-8"
           initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
         >
-          Want Shakti Leela to perform at your event? Fill out the form below and our team will get in touch with you.
+          Bring the divine energy of Shakti Leela to your temple, community, or corporate event. Our troupe of 100+ artists delivers a world-class mythological experience.
         </motion.p>
 
         <AnimatePresence mode="wait">
