@@ -14,14 +14,23 @@ export default function AdminLogin() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Login attempt started for:', email);
     setLoading(true);
-    const { error } = await signIn(email, password);
-    if (error) {
-      toast.error(error.message);
-    } else {
-      navigate('/admin');
+    try {
+      const { error } = await signIn(email, password);
+      console.log('SignIn response error:', error);
+      if (error) {
+        toast.error(error.message);
+      } else {
+        console.log('Login successful, navigating...');
+        navigate('/admin');
+      }
+    } catch (err) {
+      console.error('Unexpected login error:', err);
+      toast.error('An unexpected error occurred. Check console.');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (

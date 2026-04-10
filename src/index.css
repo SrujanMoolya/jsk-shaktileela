@@ -62,6 +62,10 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground font-body;
     overflow-x: hidden;
@@ -74,7 +78,11 @@
 
 @layer components {
   .warm-card {
-    @apply bg-card border border-border/60 rounded-xl shadow-sm;
+    @apply bg-card border border-border/60 rounded-xl shadow-sm transition-all duration-300;
+  }
+
+  .warm-card:hover {
+    @apply shadow-md border-primary/20;
   }
 
   .text-saffron-gradient {
@@ -85,6 +93,22 @@
   .section-divider {
     background: linear-gradient(90deg, transparent, hsl(var(--border)), transparent);
     height: 1px;
+  }
+
+  .shimmer-border {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer-border::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -75%;
+    width: 50%;
+    height: 200%;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.15), transparent);
+    animation: shimmer-sweep 3s ease-in-out infinite;
   }
 }
 
@@ -101,6 +125,21 @@
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-12px); }
+}
+
+@keyframes shimmer-sweep {
+  0% { left: -75%; }
+  60%, 100% { left: 125%; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 5px hsl(var(--primary) / 0.1), 0 0 10px hsl(var(--primary) / 0.05); }
+  50% { box-shadow: 0 0 20px hsl(var(--primary) / 0.3), 0 0 40px hsl(var(--primary) / 0.15); }
+}
+
+@keyframes divine-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 /* Scrollbar */

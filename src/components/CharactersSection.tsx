@@ -16,6 +16,23 @@ const fallbackCharacters = [
   { name: 'Raktabeeja', emoji: '🩸', role: 'The Demon General', description: 'A fearsome demon who could multiply from every drop of his blood.', image_url: null },
 ];
 
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.1 },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 40, scale: 0.96 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.5, ease: 'easeOut' },
+  },
+};
+
 export default function CharactersSection() {
   const [characters, setCharacters] = useState<(Character | typeof fallbackCharacters[0])[]>(fallbackCharacters);
 
@@ -26,39 +43,81 @@ export default function CharactersSection() {
   }, []);
 
   return (
-    <section id="characters" className="py-24 md:py-32">
-      <div className="container max-w-6xl mx-auto px-4">
-        <motion.p className="text-primary font-body text-sm tracking-[0.3em] uppercase text-center mb-3" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-          The Divine Cast
-        </motion.p>
-        <motion.h2 className="font-heading text-3xl md:text-5xl text-center text-saffron-gradient mb-4" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          Characters of Shakti Leela
-        </motion.h2>
-        <motion.p className="text-muted-foreground text-center text-sm mb-12 max-w-lg mx-auto" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-          Meet the divine and mythological figures brought to life through our dance drama.
-        </motion.p>
+    <section id="characters" className="py-32 md:py-48 relative overflow-hidden">
+      {/* Subtle diagonal background strip */}
+      <div className="absolute -left-24 top-0 h-full w-[40%] bg-secondary/25 -skew-x-6 z-0" />
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+      <div className="container max-w-6xl mx-auto px-4 relative z-10">
+        <motion.div
+          className="text-center mb-20"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <p className="text-primary font-body text-xs tracking-[0.45em] uppercase mb-4 font-bold">
+            Meet the Cast
+          </p>
+          <h2 className="font-heading text-saffron-gradient mb-4" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}>
+            Characters of Shakti Leela
+          </h2>
+          <div className="w-24 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mb-5" />
+          <p className="text-muted-foreground text-sm max-w-lg mx-auto leading-relaxed">
+            The divine and mythological figures brought to life through classical dance and dramatic storytelling.
+          </p>
+        </motion.div>
+
+        <motion.div
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+        >
           {characters.map((char, i) => (
             <motion.div
               key={char.name}
-              className="warm-card p-5 text-center hover:shadow-lg transition-shadow group"
-              initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
+              variants={cardVariants}
+              whileHover={{ y: -8, transition: { duration: 0.2 } }}
+              className="warm-card overflow-hidden group cursor-pointer relative"
             >
-              <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden bg-secondary/60 flex items-center justify-center text-4xl group-hover:scale-110 transition-transform">
+              {/* Shimmer on hover */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none z-10" />
+
+              {/* Image / Emoji */}
+              <div className="w-full aspect-square bg-gradient-to-br from-secondary/60 to-muted/80 flex items-center justify-center overflow-hidden relative">
                 {char.image_url ? (
-                  <img src={char.image_url} alt={char.name} className="w-full h-full object-cover" />
+                  <motion.img
+                    src={char.image_url}
+                    alt={char.name}
+                    className="w-full h-full object-cover"
+                    whileHover={{ scale: 1.08 }}
+                    transition={{ duration: 0.4 }}
+                  />
                 ) : (
-                  char.emoji
+                  <motion.span
+                    className="text-5xl"
+                    whileHover={{ scale: 1.2, rotate: 5 }}
+                    transition={{ type: 'spring', stiffness: 200 }}
+                  >
+                    {char.emoji}
+                  </motion.span>
                 )}
+                {/* Golden border on hover */}
+                <div className="absolute inset-0 border-2 border-primary/0 group-hover:border-primary/30 transition-all duration-300" />
               </div>
-              <h3 className="font-heading text-base md:text-lg text-foreground mb-1">{char.name}</h3>
-              <p className="text-primary text-xs font-body mb-2">{char.role}</p>
-              <p className="text-muted-foreground text-xs leading-relaxed">{char.description}</p>
+
+              {/* Text */}
+              <div className="p-4 text-center">
+                <h3 className="font-heading text-sm md:text-base text-foreground mb-1 leading-tight">{char.name}</h3>
+                <p className="text-primary text-[10px] font-body font-bold uppercase tracking-wider mb-2">{char.role}</p>
+                <p className="text-muted-foreground text-xs leading-relaxed opacity-0 group-hover:opacity-100 max-h-0 group-hover:max-h-24 overflow-hidden transition-all duration-500">
+                  {char.description}
+                </p>
+              </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

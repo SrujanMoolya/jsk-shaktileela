@@ -1,80 +1,220 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
+
+const BASE = 'https://yjskoofqxnnvuuapclfg.supabase.co/storage/v1/object/public/media/img';
+
+const heroImages = [
+  `${BASE}/7.jpeg`,
+  `${BASE}/WhatsApp-Image-2026-04-07-at-7.50.11-PM.jpeg`,
+  `${BASE}/WhatsApp-Image-2026-04-07-at-7.59.30-PM.jpeg`,
+  `${BASE}/20.jpeg`,
+  `${BASE}/21.jpeg`,
+  `${BASE}/3.jpeg`,
+];
 
 export default function HeroSection() {
-  return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Warm divine gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(36_50%_96%)] via-[hsl(36_55%_90%)] to-background" />
+  const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState(1);
 
-      {/* Subtle decorative elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-[10%] text-5xl animate-float opacity-20">🪷</div>
-        <div className="absolute top-1/3 right-[12%] text-4xl animate-float-delayed opacity-15">🪔</div>
-        <div className="absolute bottom-1/3 left-[20%] text-3xl animate-float opacity-10">🪷</div>
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setDirection(1);
+      setCurrent((prev) => (prev + 1) % heroImages.length);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, []);
+
+  const goTo = (index: number) => {
+    setDirection(index > current ? 1 : -1);
+    setCurrent(index);
+  };
+
+  const variants = {
+    enter: (dir: number) => ({
+      x: dir > 0 ? '100%' : '-100%',
+      opacity: 0,
+      scale: 1.04,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.75, ease: [0.25, 0.46, 0.45, 0.94] },
+    },
+    exit: (dir: number) => ({
+      x: dir > 0 ? '-100%' : '100%',
+      opacity: 0,
+      scale: 0.96,
+      transition: { duration: 0.6, ease: 'easeIn' },
+    }),
+  };
+
+  return (
+    <section className="relative min-h-screen bg-background flex flex-col md:flex-row overflow-hidden pt-[56px]">
+
+      {/* ===== LEFT: IMAGE CAROUSEL ===== */}
+      <div className="relative w-full md:w-[55%] h-[50vh] md:h-screen overflow-hidden flex-shrink-0">
+        <AnimatePresence custom={direction} mode="popLayout">
+          <motion.div
+            key={current}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            className="absolute inset-0"
+          >
+            <img
+              src={heroImages[current]}
+              alt={`Shakti Leela performance ${current + 1}`}
+              className="w-full h-full object-cover"
+            />
+            {/* Subtle right-side fade to blend with text panel */}
+            <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-r from-transparent to-background hidden md:block" />
+            {/* Bottom fade for mobile */}
+            <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent md:hidden" />
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Dot indicators */}
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          {heroImages.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              className={`transition-all duration-300 rounded-full ${
+                i === current
+                  ? 'w-6 h-2 bg-primary'
+                  : 'w-2 h-2 bg-white/50 hover:bg-white/80'
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Prev / Next arrows */}
+        <button
+          onClick={() => { setDirection(-1); setCurrent((prev) => (prev - 1 + heroImages.length) % heroImages.length); }}
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-background/60 backdrop-blur-sm border border-primary/20 text-primary text-lg flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all"
+        >
+          ‹
+        </button>
+        <button
+          onClick={() => { setDirection(1); setCurrent((prev) => (prev + 1) % heroImages.length); }}
+          className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-background/60 backdrop-blur-sm border border-primary/20 text-primary text-lg flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all"
+        >
+          ›
+        </button>
+
+        {/* Image counter — bottom-left, away from navbar */}
+        <div className="absolute bottom-5 left-5 z-10 font-heading text-xs tracking-widest text-white/60">
+          <span className="text-primary font-bold text-base">{String(current + 1).padStart(2, '0')}</span>
+          <span className="mx-1 opacity-50">/</span>
+          {String(heroImages.length).padStart(2, '0')}
+        </div>
       </div>
 
-      {/* Content */}
-      <div className="relative z-[2] text-center px-4 max-w-5xl mx-auto">
+      {/* ===== RIGHT: TEXT CONTENT ===== */}
+      <div className="relative z-10 w-full md:w-[45%] flex flex-col justify-center px-8 md:px-12 lg:px-16 py-16 md:py-0">
+
+        {/* Eyebrow */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <p className="text-primary font-body text-sm md:text-base tracking-[0.3em] uppercase mb-6">
-            Jnana Shiksha Kendra Presents
-          </p>
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 border border-primary/30 rounded-full
+                           text-primary font-body text-[10px] tracking-[0.3em] uppercase bg-primary/5 mb-6">
+            🎭 &nbsp;Jnana Shiksha Kendra Presents
+          </span>
         </motion.div>
 
+        {/* Title */}
         <motion.h1
-          className="font-heading text-4xl md:text-6xl lg:text-8xl font-bold text-saffron-gradient leading-tight mb-4"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.5 }}
+          className="font-heading font-black text-saffron-gradient mb-3 leading-[1.05]"
+          style={{ fontSize: 'clamp(2.8rem, 5vw, 5rem)' }}
+          initial={{ opacity: 0, x: 30, filter: 'blur(8px)' }}
+          animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 0.8, delay: 0.5 }}
         >
-          Shakti Leela
+          Shakti<br />Leela
         </motion.h1>
 
+        {/* Gold divider */}
+        <motion.div
+          className="h-[2px] bg-gradient-to-r from-primary via-primary/50 to-transparent mb-5"
+          initial={{ width: 0 }}
+          animate={{ width: '70%' }}
+          transition={{ duration: 1, delay: 1.1 }}
+        />
+
+        {/* Subtitle */}
         <motion.p
-          className="font-heading text-xl md:text-2xl lg:text-3xl text-foreground/80 mb-2"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.8 }}
+          className="font-heading italic text-foreground/80 mb-4"
+          style={{ fontSize: 'clamp(1rem, 2vw, 1.4rem)' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.9 }}
         >
           Shri Sampurna Devi Mahatme
         </motion.p>
 
+        {/* Description */}
         <motion.p
-          className="text-muted-foreground text-base md:text-lg mb-10 font-body"
+          className="text-muted-foreground font-body leading-relaxed mb-10 max-w-sm"
+          style={{ fontSize: 'clamp(0.8rem, 1.5vw, 0.95rem)' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.1 }}
+          transition={{ duration: 0.6, delay: 1.1 }}
         >
-          A Divine Dance Drama Experience
+          A majestic mythological dance drama celebrating the eternal power of 
+          the Divine Mother — through classical dance, music, and live theatre.
         </motion.p>
 
+        {/* CTA Buttons */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-4 justify-center"
-          initial={{ opacity: 0, y: 20 }}
+          className="flex flex-wrap gap-4 mb-14"
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.4 }}
+          transition={{ duration: 0.6, delay: 1.3 }}
         >
           <a
             href="#booking"
-            className="px-8 py-4 rounded-lg bg-primary text-primary-foreground font-heading text-sm tracking-wider uppercase transition-all hover:scale-105 hover:shadow-md"
+            className="group relative px-8 py-3.5 overflow-hidden rounded-full bg-primary text-primary-foreground
+                       font-heading text-xs tracking-[0.2em] uppercase transition-all duration-300
+                       hover:shadow-[0_8px_25px_hsl(var(--primary)/0.45)] hover:scale-105"
           >
-            Book Tickets
+            <span className="relative z-10">✦ Book Tickets</span>
+            <div className="absolute inset-0 bg-white/20 -translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
           </a>
           <a
-            href="#invite"
-            className="px-8 py-4 rounded-lg border-2 border-primary text-primary font-heading text-sm tracking-wider uppercase transition-all hover:scale-105 hover:bg-primary/10"
+            href="#shows"
+            className="px-8 py-3.5 rounded-full border border-primary/40 text-primary
+                       font-heading text-xs tracking-[0.2em] uppercase
+                       transition-all duration-300 hover:bg-primary/10 hover:scale-105"
           >
-            Invite Us to Perform
+            View Shows →
           </a>
         </motion.div>
-      </div>
 
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-[2]" />
+        {/* Stats */}
+        <motion.div
+          className="flex gap-8 pt-8 border-t border-border/60"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1.5 }}
+        >
+          {[
+            { num: '3+', label: 'Grand Shows' },
+            { num: '100+', label: 'Artists' },
+            { num: '5,000+', label: 'Audience' },
+          ].map((stat) => (
+            <div key={stat.label}>
+              <div className="font-heading font-black text-saffron-gradient text-2xl md:text-3xl">{stat.num}</div>
+              <div className="text-muted-foreground font-body text-[10px] uppercase tracking-widest mt-1">{stat.label}</div>
+            </div>
+          ))}
+        </motion.div>
+      </div>
     </section>
   );
 }
