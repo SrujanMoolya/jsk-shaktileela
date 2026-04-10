@@ -7,6 +7,7 @@ import EventsManager from '@/components/admin/EventsManager';
 import CharactersManager from '@/components/admin/CharactersManager';
 import GalleryManager from '@/components/admin/GalleryManager';
 import BookingsManager from '@/components/admin/BookingsManager';
+import ReviewsManager from '@/components/admin/ReviewsManager';
 
 export default function AdminDashboard() {
   const { user, isAdmin, loading, signOut } = useAuth();
@@ -44,12 +45,14 @@ export default function AdminDashboard() {
         <Tabs defaultValue="bookings">
           <TabsList className="mb-6 flex flex-wrap h-auto">
             <TabsTrigger value="bookings">Bookings</TabsTrigger>
+            <TabsTrigger value="reviews">Reviews</TabsTrigger>
             <TabsTrigger value="events">Events</TabsTrigger>
             <TabsTrigger value="characters">Characters</TabsTrigger>
             <TabsTrigger value="gallery">Gallery</TabsTrigger>
           </TabsList>
 
           <TabsContent value="bookings"><BookingsManager /></TabsContent>
+          <TabsContent value="reviews"><ReviewsManager /></TabsContent>
           <TabsContent value="events"><EventsManager /></TabsContent>
           <TabsContent value="characters"><CharactersManager /></TabsContent>
           <TabsContent value="gallery"><GalleryManager /></TabsContent>

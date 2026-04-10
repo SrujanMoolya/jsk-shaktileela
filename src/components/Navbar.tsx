@@ -7,6 +7,7 @@ const links = [
   { label: 'Shows', href: '#shows' },
   { label: 'Characters', href: '#characters' },
   { label: 'Gallery', href: '#gallery' },
+  { label: 'Reviews', href: '#reviews' },
   { label: 'Invite', href: '#booking' },
 ];
 
