@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import EventsManager from '@/components/admin/EventsManager';
 import CharactersManager from '@/components/admin/CharactersManager';
 import GalleryManager from '@/components/admin/GalleryManager';
+import BookingsManager from '@/components/admin/BookingsManager';
 
 export default function AdminDashboard() {
   const { user, isAdmin, loading, signOut } = useAuth();
@@ -40,13 +41,15 @@ export default function AdminDashboard() {
       </header>
 
       <div className="container max-w-6xl mx-auto px-4 py-8">
-        <Tabs defaultValue="events">
-          <TabsList className="mb-6">
+        <Tabs defaultValue="bookings">
+          <TabsList className="mb-6 flex flex-wrap h-auto">
+            <TabsTrigger value="bookings">Bookings</TabsTrigger>
             <TabsTrigger value="events">Events</TabsTrigger>
             <TabsTrigger value="characters">Characters</TabsTrigger>
             <TabsTrigger value="gallery">Gallery</TabsTrigger>
           </TabsList>
 
+          <TabsContent value="bookings"><BookingsManager /></TabsContent>
           <TabsContent value="events"><EventsManager /></TabsContent>
           <TabsContent value="characters"><CharactersManager /></TabsContent>
           <TabsContent value="gallery"><GalleryManager /></TabsContent>
