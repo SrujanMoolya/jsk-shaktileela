@@ -84,8 +84,8 @@ export default function CharactersSection() {
               {/* Shimmer on hover */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/5 to-transparent pointer-events-none z-10" />
 
-              {/* Image / Emoji */}
-              <div className="w-full aspect-square bg-gradient-to-br from-secondary/60 to-muted/80 flex items-center justify-center overflow-hidden relative">
+              {/* Image Container */}
+              <div className="w-full aspect-square bg-muted/30 flex items-center justify-center overflow-hidden relative">
                 {char.image_url ? (
                   <motion.img
                     src={char.image_url}
@@ -95,16 +95,12 @@ export default function CharactersSection() {
                     transition={{ duration: 0.4 }}
                   />
                 ) : (
-                  <motion.span
-                    className="text-5xl"
-                    whileHover={{ scale: 1.2, rotate: 5 }}
-                    transition={{ type: 'spring', stiffness: 200 }}
-                  >
-                    {char.emoji}
-                  </motion.span>
+                  <div className="w-full h-full flex items-center justify-center text-muted-foreground bg-secondary/10 text-[10px] uppercase tracking-widest">
+                    No Image
+                  </div>
                 )}
                 {/* Golden border on hover */}
-                <div className="absolute inset-0 border-2 border-primary/0 group-hover:border-primary/30 transition-all duration-300" />
+                <div className="absolute inset-0 border-2 border-primary/0 group-hover:border-primary/30 transition-all duration-300 pointer-events-none" />
               </div>
 
               {/* Text */}
