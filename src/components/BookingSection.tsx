@@ -114,7 +114,7 @@ export default function BookingSection() {
         </motion.div>
 
         <motion.p
-          className="text-muted-foreground text-center text-sm mb-12 max-w-md mx-auto leading-relaxed border-b border-primary/20 pb-8"
+          className="text-foreground/70 text-center text-sm mb-12 max-w-md mx-auto leading-relaxed border-b border-primary/20 pb-8 font-medium"
           initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
         >
           Bring the divine energy of Shakti Leela to your temple, community, or corporate event. Our troupe of 100+ artists delivers a world-class mythological experience.
@@ -149,7 +149,7 @@ export default function BookingSection() {
                 { label: 'Event Location', type: 'text', key: 'location', placeholder: 'City, Venue name' },
               ].map(({ label, type, key, placeholder }) => (
                 <div key={key}>
-                  <label className="block text-sm font-body text-foreground/70 mb-1.5">{label}</label>
+                  <label className="block text-sm font-body text-foreground/90 mb-1.5 font-semibold">{label}</label>
                   <input
                     type={type}
                     required
@@ -163,7 +163,7 @@ export default function BookingSection() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-body text-foreground/70 mb-1.5">Event Type</label>
+                  <label className="block text-sm font-body text-foreground/90 mb-1.5 font-semibold">Event Type</label>
                   <select
                     className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground focus:outline-none focus:border-primary/50 transition-colors"
                     value={form.eventType}
@@ -175,7 +175,7 @@ export default function BookingSection() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-body text-foreground/70 mb-1.5">Preferred Date</label>
+                  <label className="block text-sm font-body text-foreground/90 mb-1.5 font-semibold">Preferred Date</label>
                   <input
                     type="date"
                     className="w-full bg-background border border-border rounded-lg px-4 py-3 text-foreground focus:outline-none focus:border-primary/50 transition-colors"
@@ -186,7 +186,7 @@ export default function BookingSection() {
               </div>
 
               <div>
-                <label className="block text-sm font-body text-foreground/70 mb-1.5">Additional Message (Optional)</label>
+                <label className="block text-sm font-body text-foreground/90 mb-1.5 font-semibold">Additional Message (Optional)</label>
                 <textarea
                   rows={3}
                   placeholder="Tell us about your event..."

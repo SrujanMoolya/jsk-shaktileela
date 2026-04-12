@@ -9,6 +9,7 @@ const links = [
   { label: 'Gallery', href: '#gallery' },
   { label: 'Reviews', href: '#reviews' },
   { label: 'Invite', href: '#booking' },
+  { label: 'Jnana Shiksha Kendra', href: 'https://jnanashikshakendra.com' },
 ];
 
 export default function Navbar() {
@@ -54,6 +55,8 @@ export default function Navbar() {
             <a
               key={l.href}
               href={l.href}
+              target={l.href.startsWith('http') ? '_blank' : undefined}
+              rel={l.href.startsWith('http') ? 'noopener noreferrer' : undefined}
               className="relative text-foreground/75 hover:text-primary text-[11px] font-heading font-semibold tracking-[0.15em] uppercase transition-colors duration-200 group"
             >
               {l.label}
@@ -111,6 +114,8 @@ export default function Navbar() {
                 <a
                   key={l.href}
                   href={l.href}
+                  target={l.href.startsWith('http') ? '_blank' : undefined}
+                  rel={l.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                   onClick={() => setMenuOpen(false)}
                   className="flex items-center gap-2 text-foreground/75 hover:text-primary text-sm font-body py-3 border-b border-border/30 last:border-0 transition-colors"
                 >

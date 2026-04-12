@@ -160,8 +160,8 @@ export default function HeroSection() {
 
         {/* Description */}
         <motion.p
-          className="text-muted-foreground font-body leading-relaxed mb-10 max-w-sm"
-          style={{ fontSize: 'clamp(0.8rem, 1.5vw, 0.95rem)' }}
+          className="text-foreground font-body font-semibold leading-relaxed mb-10 max-w-sm"
+          style={{ fontSize: 'clamp(0.95rem, 1.6vw, 1.15rem)' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 1.1 }}
@@ -208,10 +208,10 @@ export default function HeroSection() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 1.6 }}
         >
-          <p className="text-primary/70 font-heading text-sm mb-1">
+          <p className="text-primary font-heading text-base mb-1 font-bold">
             "या देवी सर्वभूतेषु शक्ति-रूपेण संस्थिता।"
           </p>
-          <p className="text-muted-foreground/60 text-[10px] uppercase tracking-widest font-body font-medium">
+          <p className="text-foreground/80 text-[11px] uppercase tracking-widest font-body font-semibold">
             To that Goddess who resides in all beings as Power — Salutations!
           </p>
         </motion.div>

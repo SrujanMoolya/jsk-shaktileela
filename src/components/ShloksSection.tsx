@@ -47,7 +47,7 @@ export default function ShloksSection() {
               <p className="font-heading text-xl md:text-3xl mb-6 leading-relaxed text-primary/90">
                 {shlok.sanskrit}
               </p>
-              <p className="text-white/60 font-body text-sm md:text-base italic leading-relaxed">
+              <p className="text-white/80 font-body text-base md:text-xl font-medium italic leading-relaxed">
                 "{shlok.translation}"
               </p>
             </motion.div>
@@ -69,7 +69,7 @@ export default function ShloksSection() {
            <h3 className="font-heading text-2xl md:text-4xl text-white/90 leading-tight italic">
             "Once we are here after watching we can't go back."
            </h3>
-           <p className="mt-4 text-primary font-body text-xs tracking-widest uppercase opacity-70">
+           <p className="mt-4 text-primary font-body text-sm tracking-widest uppercase font-bold">
              — A Divine Transformation
            </p>
         </motion.div>
