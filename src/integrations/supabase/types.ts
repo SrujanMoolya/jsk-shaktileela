@@ -14,6 +14,72 @@ export type Database = {
   }
   public: {
     Tables: {
+      auditions: {
+        Row: {
+          created_at: string
+          details: string | null
+          id: string
+          location: string | null
+          name: string
+          status: string | null
+          video_url: string | null
+        }
+        Insert: {
+          created_at?: string
+          details?: string | null
+          id?: string
+          location?: string | null
+          name: string
+          status?: string | null
+          video_url?: string | null
+        }
+        Update: {
+          created_at?: string
+          details?: string | null
+          id?: string
+          location?: string | null
+          name?: string
+          status?: string | null
+          video_url?: string | null
+        }
+        Relationships: []
+      }
+      bookings: {
+        Row: {
+          created_at: string
+          event_type: string | null
+          id: string
+          location: string | null
+          message: string | null
+          name: string
+          organization: string | null
+          phone: string
+          preferred_date: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_type?: string | null
+          id?: string
+          location?: string | null
+          message?: string | null
+          name: string
+          organization?: string | null
+          phone: string
+          preferred_date?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_type?: string | null
+          id?: string
+          location?: string | null
+          message?: string | null
+          name?: string
+          organization?: string | null
+          phone?: string
+          preferred_date?: string | null
+        }
+        Relationships: []
+      }
       characters: {
         Row: {
           created_at: string
@@ -119,6 +185,36 @@ export type Database = {
           image_url?: string | null
           label?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      reviews: {
+        Row: {
+          content: string
+          created_at: string
+          designation: string | null
+          id: string
+          is_visible: boolean | null
+          name: string
+          rating: number | null
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          designation?: string | null
+          id?: string
+          is_visible?: boolean | null
+          name: string
+          rating?: number | null
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          designation?: string | null
+          id?: string
+          is_visible?: boolean | null
+          name?: string
+          rating?: number | null
         }
         Relationships: []
       }
@@ -299,11 +395,3 @@ export type CompositeTypes<
   : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
     ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
-
-export const Constants = {
-  public: {
-    Enums: {
-      app_role: ["admin", "user"],
-    },
-  },
-} as const

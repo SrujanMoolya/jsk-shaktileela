@@ -5,6 +5,7 @@ import jskLogo from '@/assets/jsk-logo.png';
 const links = [
   { label: 'About', href: '#about' },
   { label: 'Shows', href: '#shows' },
+  { label: 'Auditions', href: '#auditions' },
   { label: 'Characters', href: '#characters' },
   { label: 'Gallery', href: '#gallery' },
   { label: 'Reviews', href: '#reviews' },
@@ -40,7 +41,7 @@ export default function Navbar() {
             className="h-9 w-9 rounded-full object-cover border border-primary/30 group-hover:border-primary transition-colors duration-300"
           />
           <div>
-            <div className="font-heading text-base text-saffron-gradient font-bold tracking-wider leading-none">
+            <div className="font-heading text-base text-devi-gradient font-black tracking-widest leading-none uppercase">
               Shakti Leela
             </div>
             <div className="text-[9px] uppercase tracking-[0.18em] text-muted-foreground font-body leading-tight">
@@ -57,7 +58,7 @@ export default function Navbar() {
               href={l.href}
               target={l.href.startsWith('http') ? '_blank' : undefined}
               rel={l.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-              className="relative text-foreground/75 hover:text-primary text-[11px] font-heading font-semibold tracking-[0.15em] uppercase transition-colors duration-200 group"
+              className="relative text-primary/80 hover:text-primary text-[11px] font-heading font-black tracking-[0.15em] uppercase transition-colors duration-200 group"
             >
               {l.label}
               <span className="absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-primary rounded-full transition-all duration-300 group-hover:w-full" />

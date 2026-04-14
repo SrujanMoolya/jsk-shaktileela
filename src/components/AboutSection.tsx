@@ -12,7 +12,7 @@ export default function AboutSection() {
   return (
     <section id="about" className="relative py-32 md:py-48 overflow-hidden">
       {/* Decorative Background Elements */}
-      <div className="absolute top-0 right-0 w-1/3 h-full bg-secondary/20 -skew-x-12 translate-x-1/2 z-0" />
+      <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 -skew-x-12 translate-x-1/2 z-0" />
       
       <div className="container max-w-6xl mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -44,14 +44,14 @@ export default function AboutSection() {
               <p className="text-primary font-body text-sm tracking-[0.4em] uppercase mb-4 font-bold">
                 The Divine Narrative
               </p>
-              <h2 className="font-heading text-4xl md:text-6xl text-saffron-gradient leading-[1.1] mb-6">
+              <h2 className="font-heading text-4xl md:text-6xl text-devi-gradient leading-[1.1] mb-6 uppercase tracking-tighter">
                 The Story of <br /> Shakti Leela
               </h2>
               <div className="w-20 h-1 bg-primary mb-8" />
             </motion.div>
 
             <motion.div
-              className="space-y-6 text-foreground/80 text-lg leading-relaxed font-body"
+              className="space-y-6 text-primary font-body font-semibold italic text-lg leading-relaxed"
               variants={fadeUp} custom={1} initial="hidden" whileInView="visible" viewport={{ once: true }}
             >
               <p>

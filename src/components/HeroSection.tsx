@@ -51,6 +51,7 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen bg-background flex flex-col md:flex-row overflow-hidden pt-[56px]">
+      <div className="divine-aura w-[600px] h-[600px] -top-20 -right-20 opacity-20" />
 
       {/* ===== LEFT: IMAGE CAROUSEL ===== */}
       <div className="relative w-full md:w-[55%] h-[50vh] md:h-screen overflow-hidden flex-shrink-0">
@@ -130,7 +131,7 @@ export default function HeroSection() {
 
         {/* Title */}
         <motion.h1
-          className="font-heading font-black text-saffron-gradient mb-3 leading-[1.05]"
+          className="font-heading font-black text-devi-gradient mb-3 leading-[1.05]"
           style={{ fontSize: 'clamp(2.8rem, 5vw, 5rem)' }}
           initial={{ opacity: 0, x: 30, filter: 'blur(8px)' }}
           animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
@@ -149,7 +150,7 @@ export default function HeroSection() {
 
         {/* Subtitle */}
         <motion.p
-          className="font-heading italic text-foreground/80 mb-4"
+          className="font-heading italic text-primary mb-4"
           style={{ fontSize: 'clamp(1rem, 2vw, 1.4rem)' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -160,7 +161,7 @@ export default function HeroSection() {
 
         {/* Description */}
         <motion.p
-          className="text-foreground font-body font-semibold leading-relaxed mb-10 max-w-sm"
+          className="text-primary font-body font-semibold leading-relaxed mb-10 max-w-sm"
           style={{ fontSize: 'clamp(0.95rem, 1.6vw, 1.15rem)' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -229,8 +230,8 @@ export default function HeroSection() {
             { num: '5,000+', label: 'Audience' },
           ].map((stat) => (
             <div key={stat.label}>
-              <div className="font-heading font-black text-saffron-gradient text-2xl md:text-3xl">{stat.num}</div>
-              <div className="text-muted-foreground font-body text-[10px] uppercase tracking-widest mt-1">{stat.label}</div>
+              <div className="font-heading font-black text-devi-gradient text-2xl md:text-3xl">{stat.num}</div>
+              <div className="text-primary/60 font-body text-[10px] uppercase tracking-widest mt-1">{stat.label}</div>
             </div>
           ))}
         </motion.div>

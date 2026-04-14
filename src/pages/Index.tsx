@@ -8,6 +8,7 @@ import GallerySection from '@/components/GallerySection';
 import ReviewsSection from '@/components/ReviewsSection';
 import ShloksSection from '@/components/ShloksSection';
 import BookingSection from '@/components/BookingSection';
+import AuditionSection from '@/components/AuditionSection';
 import MissionSection from '@/components/MissionSection';
 import InviteSection from '@/components/InviteSection';
 import FooterSection from '@/components/FooterSection';
@@ -25,6 +26,7 @@ const Index = () => {
       <ReviewsSection />
       <ShloksSection />
       <BookingSection />
+      <AuditionSection />
       <MissionSection />
       {/* <InviteSection /> */}
       <FooterSection />
