@@ -58,56 +58,99 @@ export default function ReviewsManager() {
         <Button onClick={() => refetch()} variant="outline" size="sm">Refresh</Button>
       </div>
 
-      <div className="bg-card border border-border rounded-xl overflow-hidden">
+      <div className="bg-card border border-border rounded-xl overflow-hidden shadow-sm">
         {reviews && reviews.length > 0 ? (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left">
-              <thead className="text-xs text-muted-foreground uppercase bg-secondary/30">
-                <tr>
-                  <th className="px-4 py-3">Date</th>
-                  <th className="px-4 py-3">Person</th>
-                  <th className="px-4 py-3">Review Content</th>
-                  <th className="px-4 py-3">Status</th>
-                  <th className="px-4 py-3 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
-                {reviews.map((review: any) => (
-                  <tr key={review.id} className="hover:bg-secondary/10 transition-colors">
-                    <td className="px-4 py-3 whitespace-nowrap text-xs text-muted-foreground">
-                      {new Date(review.created_at).toLocaleDateString()}
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="font-semibold">{review.name}</div>
-                      <div className="text-xs text-muted-foreground">{review.designation || 'Visitor'}</div>
+          <>
+            {/* Desktop Table View */}
+            <div className="hidden lg:block overflow-x-auto">
+              <table className="w-full text-sm text-left">
+                <thead className="text-xs text-muted-foreground uppercase bg-secondary/30">
+                  <tr>
+                    <th className="px-4 py-3">Date</th>
+                    <th className="px-4 py-3">Person</th>
+                    <th className="px-4 py-3">Review Content</th>
+                    <th className="px-4 py-3">Status</th>
+                    <th className="px-4 py-3 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {reviews.map((review: any) => (
+                    <tr key={review.id} className="hover:bg-secondary/10 transition-colors">
+                      <td className="px-4 py-3 whitespace-nowrap text-xs text-muted-foreground">
+                        {new Date(review.created_at).toLocaleDateString()}
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="font-semibold">{review.name}</div>
+                        <div className="text-xs text-muted-foreground">{review.designation || 'Visitor'}</div>
+                        <div className="flex gap-0.5 mt-1">
+                          {Array.from({ length: review.rating }).map((_, i) => (
+                            <Star key={i} size={10} className="fill-primary text-primary" />
+                          ))}
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 max-w-[300px]">
+                        <p className="line-clamp-2 text-foreground/80" title={review.content}>{review.content}</p>
+                      </td>
+                      <td className="px-4 py-3">
+                        {review.is_visible ? (
+                          <span className="inline-flex items-center gap-1 text-[10px] uppercase tracking-widest font-bold text-green-600 bg-green-50 px-2 py-1 rounded">
+                            <CheckCircle size={10} /> Visible
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 text-[10px] uppercase tracking-widest font-bold text-amber-600 bg-amber-50 px-2 py-1 rounded">
+                            <XCircle size={10} /> Pending
+                          </span>
+                        )}
+                      </td>
+                      <td className="px-4 py-3 text-right">
+                        <div className="flex justify-end gap-2">
+                          <Button 
+                            onClick={() => toggleVisibility(review.id, review.is_visible)}
+                            variant="ghost" 
+                            size="icon" 
+                            className={review.is_visible ? 'text-amber-600 hover:text-amber-700' : 'text-green-600 hover:text-green-700'}
+                            title={review.is_visible ? 'Hide from site' : 'Make visible'}
+                          >
+                            {review.is_visible ? <EyeOff size={16} /> : <Eye size={16} />}
+                          </Button>
+                          <Button 
+                            onClick={() => deleteReview(review.id)}
+                            variant="ghost" 
+                            size="icon" 
+                            className="text-destructive hover:text-destructive/80"
+                            title="Delete"
+                          >
+                            <Trash2 size={16} />
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile/Tablet Card View */}
+            <div className="lg:hidden divide-y divide-border">
+              {reviews.map((review: any) => (
+                <div key={review.id} className="p-4 space-y-4">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="font-bold text-primary">{review.name}</h3>
+                      <p className="text-xs text-muted-foreground">{review.designation || 'Visitor'} • {new Date(review.created_at).toLocaleDateString()}</p>
                       <div className="flex gap-0.5 mt-1">
                         {Array.from({ length: review.rating }).map((_, i) => (
                           <Star key={i} size={10} className="fill-primary text-primary" />
                         ))}
                       </div>
-                    </td>
-                    <td className="px-4 py-3 max-w-[300px]">
-                      <p className="line-clamp-2 text-foreground/80" title={review.content}>{review.content}</p>
-                    </td>
-                    <td className="px-4 py-3">
-                      {review.is_visible ? (
-                        <span className="inline-flex items-center gap-1 text-[10px] uppercase tracking-widest font-bold text-green-600 bg-green-50 px-2 py-1 rounded">
-                          <CheckCircle size={10} /> Visible
-                        </span>
-                      ) : (
-                        <span className="inline-flex items-center gap-1 text-[10px] uppercase tracking-widest font-bold text-amber-600 bg-amber-50 px-2 py-1 rounded">
-                          <XCircle size={10} /> Pending
-                        </span>
-                      )}
-                    </td>
-                    <td className="px-4 py-3 text-right">
-                      <div className="flex justify-end gap-2">
+                    </div>
+                    <div className="flex flex-col gap-1 items-end">
+                      <div className="flex gap-1">
                         <Button 
                           onClick={() => toggleVisibility(review.id, review.is_visible)}
                           variant="ghost" 
                           size="icon" 
-                          className={review.is_visible ? 'text-amber-600 hover:text-amber-700' : 'text-green-600 hover:text-green-700'}
-                          title={review.is_visible ? 'Hide from site' : 'Make visible'}
+                          className={review.is_visible ? 'text-amber-600 h-8 w-8' : 'text-green-600 h-8 w-8'}
                         >
                           {review.is_visible ? <EyeOff size={16} /> : <Eye size={16} />}
                         </Button>
@@ -115,20 +158,32 @@ export default function ReviewsManager() {
                           onClick={() => deleteReview(review.id)}
                           variant="ghost" 
                           size="icon" 
-                          className="text-destructive hover:text-destructive/80"
-                          title="Delete"
+                          className="text-destructive h-8 w-8"
                         >
                           <Trash2 size={16} />
                         </Button>
                       </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                      {review.is_visible ? (
+                        <span className="text-[9px] uppercase font-bold text-green-600 bg-green-50 px-1.5 py-0.5 rounded">
+                          Visible
+                        </span>
+                      ) : (
+                        <span className="text-[9px] uppercase font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded">
+                          Pending
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="bg-secondary/5 rounded p-3 text-sm text-foreground/80 leading-relaxed italic border-l-2 border-primary/20">
+                    "{review.content}"
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
         ) : (
-          <div className="p-8 text-center text-muted-foreground">
+          <div className="p-12 text-center text-muted-foreground italic">
             No reviews submitted yet.
           </div>
         )}

@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import type { Tables, TablesInsert } from '@/integrations/supabase/types';
 import ImageUpload from './ImageUpload';
+import { deleteFileFromStorage } from '@/utils/storage-utils';
 
 type Event = Tables<'events'>;
 
@@ -52,9 +53,17 @@ export default function EventsManager() {
     setForm({ name: event.name, date: event.date, location: event.location, description: event.description, status: event.status, video_link: event.video_link, photos: event.photos ?? [] });
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (event: any) => {
     if (!confirm('Delete this event?')) return;
-    const { error } = await supabase.from('events').delete().eq('id', id);
+
+    // Delete all photos from storage
+    if (event.photos && Array.isArray(event.photos)) {
+      for (const url of event.photos) {
+        await deleteFileFromStorage(url);
+      }
+    }
+
+    const { error } = await supabase.from('events').delete().eq('id', event.id);
     if (error) toast.error(error.message);
     else { toast.success('Event deleted'); fetchEvents(); }
   };
@@ -63,13 +72,17 @@ export default function EventsManager() {
     setForm(prev => ({ ...prev, photos: [...(prev.photos || []), url] }));
   };
 
-  const removePhoto = (index: number) => {
+  const removePhoto = async (index: number) => {
+    const urlToRemove = form.photos?.[index];
+    if (urlToRemove) {
+      await deleteFileFromStorage(urlToRemove);
+    }
     setForm(prev => ({ ...prev, photos: (prev.photos || []).filter((_, i) => i !== index) }));
   };
 
   return (
     <div className="space-y-6">
-      <div className="warm-card p-6 space-y-4">
+      <div className="warm-card p-4 md:p-6 space-y-4">
         <h2 className="font-heading text-lg">{editingId ? 'Edit Event' : 'Add Event'}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Input placeholder="Event Name" value={form.name || ''} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} />
@@ -108,17 +121,19 @@ export default function EventsManager() {
 
       <div className="space-y-3">
         {events.map(event => (
-          <div key={event.id} className="warm-card p-4 flex items-center justify-between">
+          <div key={event.id} className="warm-card p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className={`text-xs px-2 py-0.5 rounded-full mr-2 ${event.status === 'past' ? 'bg-muted text-muted-foreground' : 'bg-primary/15 text-primary'}`}>
-                {event.status}
-              </span>
-              <strong className="font-heading">{event.name}</strong>
-              <span className="text-muted-foreground text-sm ml-2">— {event.date}, {event.location}</span>
+              <div className="flex items-center gap-2 mb-1">
+                <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${event.status === 'past' ? 'bg-muted text-muted-foreground' : 'bg-primary/20 text-primary'}`}>
+                  {event.status}
+                </span>
+                <strong className="font-heading text-lg">{event.name}</strong>
+              </div>
+              <p className="text-muted-foreground text-sm">{event.date} • {event.location}</p>
             </div>
-            <div className="flex gap-2">
-              <Button size="sm" variant="outline" onClick={() => handleEdit(event)}>Edit</Button>
-              <Button size="sm" variant="destructive" onClick={() => handleDelete(event.id)}>Delete</Button>
+            <div className="flex gap-2 w-full sm:w-auto">
+              <Button size="sm" variant="outline" className="flex-1 sm:flex-none" onClick={() => handleEdit(event)}>Edit</Button>
+               <Button size="sm" variant="destructive" className="flex-1 sm:flex-none" onClick={() => handleDelete(event)}>Delete</Button>
             </div>
           </div>
         ))}

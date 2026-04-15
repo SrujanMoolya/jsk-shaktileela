@@ -33,48 +33,89 @@ export default function BookingsManager() {
         </button>
       </div>
 
-      <div className="bg-card border border-border rounded-xl overflow-hidden">
+      <div className="bg-card border border-border rounded-xl overflow-hidden shadow-sm">
         {bookings && bookings.length > 0 ? (
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left">
-              <thead className="text-xs text-muted-foreground uppercase bg-secondary/30">
-                <tr>
-                  <th className="px-4 py-3">Date Received</th>
-                  <th className="px-4 py-3">Name / Org</th>
-                  <th className="px-4 py-3">Event Type</th>
-                  <th className="px-4 py-3">Pref. Date</th>
-                  <th className="px-4 py-3">Details</th>
-                  <th className="px-4 py-3">Message</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
-                {bookings.map((booking: any) => (
-                  <tr key={booking.id} className="hover:bg-secondary/10 transition-colors">
-                    <td className="px-4 py-3 whitespace-nowrap">
-                      {new Date(booking.created_at).toLocaleDateString()}
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="font-semibold">{booking.name}</div>
-                      <div className="text-muted-foreground text-xs">{booking.organization || '-'}</div>
-                    </td>
-                    <td className="px-4 py-3">{booking.event_type}</td>
-                    <td className="px-4 py-3 whitespace-nowrap">
-                      {booking.preferred_date ? new Date(booking.preferred_date).toLocaleDateString() : 'Not set'}
-                    </td>
-                    <td className="px-4 py-3">
-                      <div><span className="text-muted-foreground text-xs">Ph:</span> {booking.phone}</div>
-                      <div><span className="text-muted-foreground text-xs">Loc:</span> {booking.location}</div>
-                    </td>
-                    <td className="px-4 py-3 max-w-[250px] truncate" title={booking.message || ''}>
-                      {booking.message || <span className="text-muted-foreground/50 italic">No message</span>}
-                    </td>
+          <>
+            {/* Desktop Table View */}
+            <div className="hidden lg:block overflow-x-auto">
+              <table className="w-full text-sm text-left">
+                <thead className="text-xs text-muted-foreground uppercase bg-secondary/30">
+                  <tr>
+                    <th className="px-4 py-3">Date Received</th>
+                    <th className="px-4 py-3">Name / Org</th>
+                    <th className="px-4 py-3">Event Type</th>
+                    <th className="px-4 py-3">Pref. Date</th>
+                    <th className="px-4 py-3">Contact/Loc</th>
+                    <th className="px-4 py-3">Message</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {bookings.map((booking: any) => (
+                    <tr key={booking.id} className="hover:bg-secondary/10 transition-colors">
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        {new Date(booking.created_at).toLocaleDateString()}
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="font-semibold">{booking.name}</div>
+                        <div className="text-muted-foreground text-xs">{booking.organization || '-'}</div>
+                      </td>
+                      <td className="px-4 py-3">{booking.event_type}</td>
+                      <td className="px-4 py-3 whitespace-nowrap">
+                        {booking.preferred_date ? new Date(booking.preferred_date).toLocaleDateString() : 'Not set'}
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="text-xs">
+                          <span className="text-primary font-medium">Ph:</span> {booking.phone}
+                        </div>
+                        <div className="text-xs truncate max-w-[150px]">
+                          <span className="text-primary font-medium">Loc:</span> {booking.location}
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 max-w-[200px] truncate" title={booking.message || ''}>
+                        {booking.message || <span className="text-muted-foreground/50 italic">No message</span>}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile/Tablet Card View */}
+            <div className="lg:hidden divide-y divide-border">
+              {bookings.map((booking: any) => (
+                <div key={booking.id} className="p-4 space-y-3">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="font-bold text-primary">{booking.name}</h3>
+                      <p className="text-xs text-muted-foreground">{booking.organization || 'No Organization'}</p>
+                    </div>
+                    <span className="text-[10px] bg-secondary px-2 py-0.5 rounded text-muted-foreground uppercase font-bold">
+                      {booking.event_type}
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="space-y-1">
+                      <p className="text-muted-foreground">Received: {new Date(booking.created_at).toLocaleDateString()}</p>
+                      <p className="font-medium">Pref: {booking.preferred_date ? new Date(booking.preferred_date).toLocaleDateString() : 'TBD'}</p>
+                    </div>
+                    <div className="space-y-1 text-right">
+                      <p className="font-medium">{booking.phone}</p>
+                      <p className="text-muted-foreground truncate">{booking.location}</p>
+                    </div>
+                  </div>
+
+                  {booking.message && (
+                    <div className="bg-secondary/5 rounded p-2 text-xs text-muted-foreground italic">
+                      "{booking.message}"
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </>
         ) : (
-          <div className="p-8 text-center text-muted-foreground">
+          <div className="p-12 text-center text-muted-foreground italic font-medium">
             No booking inquiries received yet.
           </div>
         )}

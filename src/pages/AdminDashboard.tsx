@@ -32,33 +32,39 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-background text-primary">
-      <header className="border-b border-primary/10 bg-card px-4 py-3 flex items-center justify-between">
-        <h1 className="font-heading text-xl text-devi-gradient uppercase tracking-widest">Shakti Leela Admin</h1>
-        <div className="flex items-center gap-3">
-          <span className="text-primary/60 text-sm font-medium">{user.email}</span>
-          <Button variant="outline" size="sm" className="border-primary/20 hover:bg-primary/5 text-primary" onClick={() => { signOut(); navigate('/'); }}>
-            Sign Out
-          </Button>
+      <header className="border-b border-primary/10 bg-card px-4 py-3 sticky top-0 z-50">
+        <div className="container max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+          <h1 className="font-heading text-lg md:text-xl text-devi-gradient uppercase tracking-widest text-center sm:text-left">Shakti Leela Admin</h1>
+          <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 pt-2 sm:pt-0 border-primary/5">
+            <span className="text-primary/60 text-xs md:text-sm font-medium truncate max-w-[150px] md:max-w-none">{user.email}</span>
+            <Button variant="outline" size="sm" className="h-8 px-2 md:px-3 border-primary/20 hover:bg-primary/5 text-primary text-xs" onClick={() => { signOut(); navigate('/'); }}>
+              Sign Out
+            </Button>
+          </div>
         </div>
       </header>
 
-      <div className="container max-w-6xl mx-auto px-4 py-8">
-        <Tabs defaultValue="bookings">
-          <TabsList className="mb-6 flex flex-wrap h-auto bg-primary/5 p-1">
-            <TabsTrigger value="bookings" className="data-[state=active]:bg-primary data-[state=active]:text-white">Bookings</TabsTrigger>
-            <TabsTrigger value="auditions" className="data-[state=active]:bg-primary data-[state=active]:text-white">Auditions</TabsTrigger>
-            <TabsTrigger value="reviews" className="data-[state=active]:bg-primary data-[state=active]:text-white">Reviews</TabsTrigger>
-            <TabsTrigger value="events" className="data-[state=active]:bg-primary data-[state=active]:text-white">Events</TabsTrigger>
-            <TabsTrigger value="characters" className="data-[state=active]:bg-primary data-[state=active]:text-white">Characters</TabsTrigger>
-            <TabsTrigger value="gallery" className="data-[state=active]:bg-primary data-[state=active]:text-white">Gallery</TabsTrigger>
-          </TabsList>
+      <div className="container max-w-6xl mx-auto px-2 md:px-4 py-4 md:py-8">
+        <Tabs defaultValue="bookings" className="w-full">
+          <div className="overflow-x-auto pb-2 -mx-2 px-2 scrollbar-hide">
+            <TabsList className="inline-flex w-auto min-w-full bg-primary/5 p-1 mb-2 whitespace-nowrap">
+              <TabsTrigger value="bookings" className="px-4 py-2 data-[state=active]:bg-primary data-[state=active]:text-white text-xs md:text-sm">Bookings</TabsTrigger>
+              <TabsTrigger value="auditions" className="px-4 py-2 data-[state=active]:bg-primary data-[state=active]:text-white text-xs md:text-sm">Auditions</TabsTrigger>
+              <TabsTrigger value="reviews" className="px-4 py-2 data-[state=active]:bg-primary data-[state=active]:text-white text-xs md:text-sm">Reviews</TabsTrigger>
+              <TabsTrigger value="events" className="px-4 py-2 data-[state=active]:bg-primary data-[state=active]:text-white text-xs md:text-sm">Events</TabsTrigger>
+              <TabsTrigger value="characters" className="px-4 py-2 data-[state=active]:bg-primary data-[state=active]:text-white text-xs md:text-sm">Characters</TabsTrigger>
+              <TabsTrigger value="gallery" className="px-4 py-2 data-[state=active]:bg-primary data-[state=active]:text-white text-xs md:text-sm">Gallery</TabsTrigger>
+            </TabsList>
+          </div>
 
-          <TabsContent value="bookings"><BookingsManager /></TabsContent>
-          <TabsContent value="auditions"><AuditionsManager /></TabsContent>
-          <TabsContent value="reviews"><ReviewsManager /></TabsContent>
-          <TabsContent value="events"><EventsManager /></TabsContent>
-          <TabsContent value="characters"><CharactersManager /></TabsContent>
-          <TabsContent value="gallery"><GalleryManager /></TabsContent>
+          <div className="mt-4 md:mt-6">
+            <TabsContent value="bookings" className="m-0 focus-visible:outline-none"><BookingsManager /></TabsContent>
+            <TabsContent value="auditions" className="m-0 focus-visible:outline-none"><AuditionsManager /></TabsContent>
+            <TabsContent value="reviews" className="m-0 focus-visible:outline-none"><ReviewsManager /></TabsContent>
+            <TabsContent value="events" className="m-0 focus-visible:outline-none"><EventsManager /></TabsContent>
+            <TabsContent value="characters" className="m-0 focus-visible:outline-none"><CharactersManager /></TabsContent>
+            <TabsContent value="gallery" className="m-0 focus-visible:outline-none"><GalleryManager /></TabsContent>
+          </div>
         </Tabs>
       </div>
     </div>

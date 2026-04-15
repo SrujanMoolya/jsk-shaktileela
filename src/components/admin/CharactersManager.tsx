@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import type { Tables, TablesInsert } from '@/integrations/supabase/types';
 import ImageUpload from './ImageUpload';
+import { deleteFileFromStorage } from '@/utils/storage-utils';
 
 type Character = Tables<'characters'>;
 
@@ -44,15 +45,23 @@ export default function CharactersManager() {
     setForm({ name: c.name, role: c.role, description: c.description, emoji: c.emoji, image_url: c.image_url });
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (character: Character) => {
     if (!confirm('Delete this character?')) return;
-    const { error } = await supabase.from('characters').delete().eq('id', id);
-    if (error) toast.error(error.message); else { toast.success('Deleted'); fetch(); }
+    
+    // 1. Delete associated image from storage
+    if (character.image_url) {
+      await deleteFileFromStorage(character.image_url);
+    }
+
+    // 2. Delete the database record
+    const { error } = await supabase.from('characters').delete().eq('id', character.id);
+    if (error) toast.error(error.message); 
+    else { toast.success('Deleted'); fetch(); }
   };
 
   return (
     <div className="space-y-6">
-      <div className="warm-card p-6 space-y-4">
+      <div className="warm-card p-4 md:p-6 space-y-4">
         <h2 className="font-heading text-lg">{editingId ? 'Edit Character' : 'Add Character'}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Input placeholder="Character Name" value={form.name || ''} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} />
@@ -76,23 +85,23 @@ export default function CharactersManager() {
 
       <div className="space-y-3">
         {characters.map(c => (
-          <div key={c.id} className="warm-card p-4 flex items-center justify-between">
+          <div key={c.id} className="warm-card p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full overflow-hidden bg-muted flex-shrink-0 border border-border">
+              <div className="w-14 h-14 rounded-full overflow-hidden bg-muted flex-shrink-0 border-2 border-primary/10">
                 {c.image_url ? (
                   <img src={c.image_url} alt="" className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-muted-foreground text-xs uppercase">No Img</div>
+                  <div className="w-full h-full flex items-center justify-center text-muted-foreground text-[10px] uppercase">No Img</div>
                 )}
               </div>
-              <div>
-                <strong className="font-heading">{c.name}</strong>
-                <span className="text-muted-foreground text-sm ml-2">— {c.role}</span>
+              <div className="flex flex-col">
+                <strong className="font-heading text-lg leading-tight">{c.name}</strong>
+                <span className="text-primary/70 text-sm font-medium">{c.role}</span>
               </div>
             </div>
-            <div className="flex gap-2">
-              <Button size="sm" variant="outline" onClick={() => handleEdit(c)}>Edit</Button>
-              <Button size="sm" variant="destructive" onClick={() => handleDelete(c.id)}>Delete</Button>
+            <div className="flex gap-2 w-full sm:w-auto">
+              <Button size="sm" variant="outline" className="flex-1 sm:flex-none h-9" onClick={() => handleEdit(c)}>Edit</Button>
+              <Button size="sm" variant="destructive" className="flex-1 sm:flex-none h-9" onClick={() => handleDelete(c)}>Delete</Button>
             </div>
           </div>
         ))}

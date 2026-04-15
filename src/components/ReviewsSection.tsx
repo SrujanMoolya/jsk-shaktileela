@@ -34,13 +34,13 @@ export default function ReviewsSection() {
           content: form.content, 
           rating: form.rating, 
           designation: form.designation,
-          is_visible: false // Admin must approve
+          is_visible: true // Visible by default, admin can hide later
         }
       ]);
 
       if (error) throw error;
 
-      toast.success("Review submitted! It will appear once approved by admin.");
+      toast.success("Review submitted successfully! Thank you for sharing your experience.");
       setForm({ name: '', content: '', rating: 5, designation: '' });
       setShowForm(false);
     } catch (err) {
