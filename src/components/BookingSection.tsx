@@ -18,23 +18,31 @@ export default function BookingSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
     setIsSubmitting(true);
+    
+    console.log("Submitting booking request:", form);
     
     try {
       // 1. Save to Supabase Admin Panel
-      const { error } = await supabase.from('bookings').insert([{
-        name: form.name,
-        phone: form.phone,
-        organization: form.organization,
-        location: form.location,
-        event_type: form.eventType,
-        preferred_date: form.date || null,
-        message: form.message
-      }]);
+      const { data, error } = await supabase
+        .from('bookings')
+        .insert({
+          name: form.name,
+          phone: form.phone,
+          organization: form.organization,
+          location: form.location,
+          event_type: form.eventType,
+          preferred_date: form.date || null,
+          message: form.message
+        })
+        .select();
+
+      console.log("Booking database response:", { data, error });
 
       if (error) {
         console.error("Supabase Error:", error);
-        throw new Error("Could not save to database");
+        throw new Error(error.message || "Could not save to database");
       }
 
       // 2. Send email to jnanashikshakendra@gmail.com

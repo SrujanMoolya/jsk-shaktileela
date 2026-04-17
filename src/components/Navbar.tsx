@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import jskLogo from '@/assets/jsk-logo.png';
+import { ExternalLink } from 'lucide-react';
 
 const links = [
   { label: 'About', href: '#about' },
@@ -8,9 +9,8 @@ const links = [
   { label: 'Auditions', href: '#auditions' },
   { label: 'Characters', href: '#characters' },
   { label: 'Gallery', href: '#gallery' },
-  { label: 'Reviews', href: '#reviews' },
-  { label: 'Invite', href: '#booking' },
-  { label: 'Jnana Shiksha Kendra', href: 'https://jnanashikshakendra.com' },
+
+  { label: 'Jnana Shiksha Kendra', href: 'https://jnanashikshakendra.com', isSpecial: true },
 ];
 
 export default function Navbar() {
@@ -58,10 +58,20 @@ export default function Navbar() {
               href={l.href}
               target={l.href.startsWith('http') ? '_blank' : undefined}
               rel={l.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-              className="relative text-primary/80 hover:text-primary text-[11px] font-heading font-black tracking-[0.15em] uppercase transition-colors duration-200 group"
+              className={`
+                relative flex items-center gap-1.5 transition-all duration-300 group px-3 py-1.5 rounded-full
+                ${l.isSpecial 
+                  ? 'text-primary border border-primary/30 bg-primary/5 hover:bg-primary/10 hover:border-primary/60 shadow-[0_0_15px_rgba(var(--primary-rgb),0.05)] hover:shadow-[0_0_20px_rgba(var(--primary-rgb),0.1)]' 
+                  : 'text-primary/70 hover:text-primary'
+                }
+                text-[10px] font-heading font-black tracking-[0.15em] uppercase
+              `}
             >
               {l.label}
-              <span className="absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-primary rounded-full transition-all duration-300 group-hover:w-full" />
+              {l.isSpecial && <ExternalLink size={10} className="opacity-70 group-hover:opacity-100 transition-opacity" />}
+              {!l.isSpecial && (
+                <span className="absolute -bottom-0.5 left-0 w-0 h-[1.5px] bg-primary rounded-full transition-all duration-300 group-hover:w-full" />
+              )}
             </a>
           ))}
         </div>
@@ -118,9 +128,15 @@ export default function Navbar() {
                   target={l.href.startsWith('http') ? '_blank' : undefined}
                   rel={l.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                   onClick={() => setMenuOpen(false)}
-                  className="flex items-center gap-2 text-foreground/75 hover:text-primary text-sm font-body py-3 border-b border-border/30 last:border-0 transition-colors"
+                  className={`flex items-center gap-2 text-sm font-body py-3 border-b border-border/30 last:border-0 transition-colors ${
+                    l.isSpecial ? 'text-primary font-bold bg-primary/5 px-2 rounded-lg mt-2' : 'text-foreground/75 hover:text-primary'
+                  }`}
                 >
-                  <span className="w-1 h-1 rounded-full bg-primary/50" />
+                  {l.isSpecial ? (
+                    <ExternalLink size={14} className="text-primary" />
+                  ) : (
+                    <span className="w-1 h-1 rounded-full bg-primary/50" />
+                  )}
                   {l.label}
                 </a>
               ))}

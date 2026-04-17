@@ -19,12 +19,20 @@ const AuditionSection = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading) return;
     setLoading(true);
 
+    console.log("Submitting audition proposal:", formData);
+
     try {
-      const { error } = await supabase
+      // Use single object insert which is often more reliable in some client versions
+      // and explicitly catch any potential promise hangs or errors
+      const { data, error } = await supabase
         .from('auditions')
-        .insert([formData]);
+        .insert(formData)
+        .select();
+
+      console.log("Supabase response:", { data, error });
 
       if (error) throw error;
 
@@ -40,10 +48,11 @@ const AuditionSection = () => {
         video_url: '',
       });
     } catch (error: any) {
+      console.error("Submission error:", error);
       toast({
         variant: "destructive",
         title: "Submission failed",
-        description: error.message || "Something went wrong.",
+        description: error.message || "Could not connect to the database. Please check your internet or try again later.",
       });
     } finally {
       setLoading(false);
@@ -83,7 +92,7 @@ const AuditionSection = () => {
             viewport={{ once: true }}
             className="devi-card p-8 md:p-12 mb-12 shadow-2xl shadow-primary/5"
           >
-            <form onSubmit={handleSubmit} className="space-y-8">
+            <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
                   <label className="text-sm font-bold uppercase tracking-wider flex items-center gap-2 text-primary">

@@ -26,26 +26,33 @@ export default function ReviewsSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
     setIsSubmitting(true);
+    
+    console.log("Submitting review:", form);
+
     try {
-      const { error } = await supabase.from('reviews').insert([
-        { 
+      const { data, error } = await supabase
+        .from('reviews')
+        .insert({ 
           name: form.name, 
           content: form.content, 
           rating: form.rating, 
           designation: form.designation,
-          is_visible: true // Visible by default, admin can hide later
-        }
-      ]);
+          is_visible: true 
+        })
+        .select();
+
+      console.log("Review response:", { data, error });
 
       if (error) throw error;
 
       toast.success("Review submitted successfully! Thank you for sharing your experience.");
       setForm({ name: '', content: '', rating: 5, designation: '' });
       setShowForm(false);
-    } catch (err) {
-      console.error(err);
-      toast.error("Failed to submit review.");
+    } catch (err: any) {
+      console.error("Review submission error:", err);
+      toast.error(err.message || "Failed to submit review. Please try again.");
     } finally {
       setIsSubmitting(false);
     }

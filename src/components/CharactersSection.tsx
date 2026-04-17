@@ -87,12 +87,12 @@ export default function CharactersSection() {
                     {/* Content Overlay */}
                     <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end transform transition-transform duration-500 translate-y-8 group-hover/card:translate-y-0">
                       <h3 className="text-white font-heading text-2xl lg:text-3xl uppercase tracking-widest drop-shadow-lg mb-1">
-                        {char.name}
+                        {char.role}
                       </h3>
                       
                       {char.role && (
-                        <p className="text-primary font-body text-xs sm:text-sm font-bold tracking-[0.2em] uppercase mb-3 drop-shadow-md">
-                          {char.role}
+                        <p className="text-white font-body text-xs sm:text-sm font-bold tracking-[0.2em] uppercase mb-3 drop-shadow-md">
+                         - {char.name}
                         </p>
                       )}
                       
