@@ -148,14 +148,14 @@ function LongShowCard({ show, index }: { show: any; index: number }) {
           {show.photos && show.photos.length > 0 ? (
             <div className="absolute inset-0 grid grid-cols-2 gap-1.5 p-4">
               <div className="relative overflow-hidden rounded-2xl border border-white/10 group-hover:scale-[1.02] transition-transform duration-700">
-                <img src={show.photos[0]} alt="" className="w-full h-full object-cover" />
+                <img src={show.photos[0]} alt={`${show.name} performance highlight`} loading="lazy" className="w-full h-full object-cover" />
               </div>
               <div className="grid grid-rows-2 gap-1.5">
                 <div className="relative overflow-hidden rounded-2xl border border-white/10 group-hover:scale-[1.02] transition-transform duration-700 delay-75">
-                  <img src={show.photos[1] || show.photos[0]} alt="" className="w-full h-full object-cover" />
+                  <img src={show.photos[1] || show.photos[0]} alt={`${show.name} stage moment`} loading="lazy" className="w-full h-full object-cover" />
                 </div>
                 <div className="relative overflow-hidden rounded-2xl border border-white/10 group-hover:scale-[1.02] transition-transform duration-700 delay-150">
-                  <img src={show.photos[2] || show.photos[0]} alt="" className="w-full h-full object-cover" />
+                  <img src={show.photos[2] || show.photos[0]} alt={`${show.name} artist feature`} loading="lazy" className="w-full h-full object-cover" />
                 </div>
               </div>
             </div>
@@ -214,6 +214,7 @@ function LongShowCard({ show, index }: { show: any; index: number }) {
                 href={show.video_link} 
                 target="_blank" 
                 rel="noopener noreferrer" 
+                aria-label={`Watch highlights of ${show.name}`}
                 className="group/btn inline-flex items-center gap-3 text-primary text-xs font-heading font-bold uppercase tracking-[0.25em] bg-transparent hover:bg-primary/5 px-6 py-3 rounded-full border border-primary/20 transition-all"
               >
                 Watch Highlights <Play className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />

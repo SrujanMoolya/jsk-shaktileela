@@ -34,10 +34,11 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-5 flex items-center justify-between gap-4">
 
         {/* Logo */}
-        <a href="#" className="flex items-center gap-3 shrink-0 group">
+        <a href="#" className="flex items-center gap-3 shrink-0 group" title="Shakti Leela – Back to Top">
           <img
             src={jskLogo}
-            alt="JSK Logo"
+            alt="JSK Shakti Leela Logo"
+            loading="lazy"
             className="h-9 w-9 rounded-full object-cover border border-primary/30 group-hover:border-primary transition-colors duration-300"
           />
           <div>
@@ -58,6 +59,8 @@ export default function Navbar() {
               href={l.href}
               target={l.href.startsWith('http') ? '_blank' : undefined}
               rel={l.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+              title={l.isSpecial ? "Visit Jnana Shiksha Kendra Official Website" : `Explore our ${l.label}`}
+              aria-label={l.isSpecial ? "Visit JSK main site" : `Go to ${l.label} section`}
               className={`
                 relative flex items-center gap-1.5 transition-all duration-300 group px-3 py-1.5 rounded-full
                 ${l.isSpecial 
@@ -80,6 +83,8 @@ export default function Navbar() {
         <div className="flex items-center gap-3 shrink-0">
           <a
             href="#booking"
+            title="Book Shakti Leela for your event"
+            aria-label="Navigate to booking section"
             className="hidden sm:inline-flex items-center px-6 py-2 rounded-full bg-primary text-primary-foreground font-heading text-[11px] tracking-[0.15em] uppercase transition-all duration-300 hover:scale-105 hover:shadow-[0_4px_20px_hsl(var(--primary)/0.4)]"
           >
             Book Now
@@ -89,7 +94,8 @@ export default function Navbar() {
           <button
             className="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1.5 rounded-lg border border-border/60 hover:border-primary/40 transition-colors"
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
+            aria-label="Open mobile menu"
+            title="Toggle Menu"
           >
             <motion.span
               className="block w-5 h-[1.5px] bg-foreground rounded-full origin-center"
@@ -128,6 +134,8 @@ export default function Navbar() {
                   target={l.href.startsWith('http') ? '_blank' : undefined}
                   rel={l.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                   onClick={() => setMenuOpen(false)}
+                  title={l.label}
+                  aria-label={`Go to ${l.label}`}
                   className={`flex items-center gap-2 text-sm font-body py-3 border-b border-border/30 last:border-0 transition-colors ${
                     l.isSpecial ? 'text-primary font-bold bg-primary/5 px-2 rounded-lg mt-2' : 'text-foreground/75 hover:text-primary'
                   }`}
@@ -143,6 +151,8 @@ export default function Navbar() {
               <a
                 href="#booking"
                 onClick={() => setMenuOpen(false)}
+                title="Book Shakti Leela now"
+                aria-label="Go to booking section"
                 className="block w-full text-center mt-3 px-6 py-3 rounded-full bg-primary text-primary-foreground font-heading text-xs tracking-widest uppercase"
               >
                 Book Now
